@@ -1,0 +1,21 @@
+import numpy as np
+import pandas as pd
+from scipy.stats import norm
+
+
+def task146():
+    np.random.seed(5)
+    n = 1000000
+    x = norm.rvs(-15, 15, size=n)
+    args = np.linspace(-60, 30, 7)
+    f_args = []
+    for a in args:
+        f_args.append(len([z for z in x if z <= a]) / n)
+    df = pd.DataFrame(columns=['x', 'f_emp(x)', 'f_theoretic(x)'])
+    for i in range(len(args)):
+        df.loc[len(df)] = [args[i], f_args[i], norm.cdf(args[i], -15, 15)]
+    print(df)
+
+
+if __name__ == '__main__':
+    task146()
